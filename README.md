@@ -137,7 +137,9 @@ List of modules (within `node_modules`) to transform them regardless of syntax.
 - Run `pnpm watch`
 - Run `pnpm kazuya ./test/path/to/file.ts`
 
+## About the name
 
+![](./assets/kazuya.jpg)
 ## Credits
 
 Forked from [jiti](https://github.com/unjs/jiti).
