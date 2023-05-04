@@ -14,6 +14,7 @@ import { addHook } from "pirates";
 import objectHash from "object-hash";
 import { hasESMSyntax, interopDefault, resolvePathSync } from "mlly";
 
+import sucrase from "./sucrase";
 import {
   getCacheDir,
   isDir,
@@ -225,7 +226,7 @@ export default function createKazuya(
 
   function transform(topts: any): string {
     let code = getCache(topts.filename, topts.source, () => {
-      const res = opts.transform!({
+      const res = sucrase({
         ...opts.transformOptions,
         ...topts,
       });

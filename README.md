@@ -20,6 +20,7 @@ Cons:
 - Less features (Does not support import.meta and decorators)
 - No support for older node versions
 - No sourcemap support
+- No custom transform support
 
 ## Features
 
@@ -97,13 +98,6 @@ If set to `true` will use `node_modules/.cache/kazuya` (if exists) or `{TMP_DIR}
 
 Using esm resolution algorithm to support `import` condition.
 
-### `transform`
-
-- Type: Function
-- Default: Sucrase (lazy loaded)
-
-Transform function. See [src/sucrase](./src/sucrase.ts) for more details.
-
 ### `interopDefault`
 
 - Type: Boolean
@@ -140,7 +134,7 @@ List of modules (within `node_modules`) to transform them regardless of syntax.
 - Clone this repository
 - Enable [Corepack](https://github.com/nodejs/corepack) using `corepack enable`
 - Install dependencies using `pnpm install`
-- Run `pnpm stub`
+- Run `pnpm watch`
 - Run `pnpm kazuya ./test/path/to/file.ts`
 
 

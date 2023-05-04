@@ -14,7 +14,6 @@ export interface TransformResult {
 }
 
 export interface KazuyaOptions {
-  transform?: (opts: TransformOptions) => TransformResult;
   debug?: boolean;
   cache?: boolean | string;
   requireCache?: boolean;

@@ -8,9 +8,5 @@ function onError(err: any) {
 module.exports = function (filename: string, opts: KazuyaOptions) {
   opts = { onError, ...opts };
 
-  if (!opts.transform) {
-    opts.transform = require("./sucrase");
-  }
-
   return kazuya(filename, opts);
 };
