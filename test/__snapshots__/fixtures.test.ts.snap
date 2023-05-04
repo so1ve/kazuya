@@ -6,69 +6,15 @@ exports[`fixtures > circular > stdout 1`] = `"FooBar"`;
 
 exports[`fixtures > env > stdout 1`] = `"process.env.TEST true"`;
 
-exports[`fixtures > error-parse > stderr 1`] = `
-"<root>/dist/index.cjs:23548
-  throw err;
-  ^
-
-Error: undefined: Expected string token at the end of import statement. 
- <cwd>/index.ts
-    at Object.<anonymous> (<root>/bin/kazuya)
-    at Module._compile (internal/modules/cjs/loader)
-    at Module._extensions..js (internal/modules/cjs/loader)
-    at Module.load (internal/modules/cjs/loader)
-    at Module._load (internal/modules/cjs/loader)
-    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main)
-    at internal/main/run_main_module
-
-Node.js v18.15.0"
-`;
+exports[`fixtures > error-parse > stderr 1`] = `""`;
 
 exports[`fixtures > error-parse > stdout 1`] = `""`;
 
-exports[`fixtures > error-runtime > stderr 1`] = `
-"<root>/dist/index.cjs:23548
-  throw err;
-  ^
-
-TypeError [ERR_INVALID_ARG_TYPE]: The \\"listener\\" argument must be of type function. Received undefined
-    at checkListener (events)
-    at _addListener (events)
-    at process.addListener (events)
-    at <cwd>/index.ts
-    at kazuya (<root>/dist/index.cjs)
-    at Object.<anonymous> (<root>/bin/kazuya)
-    at Module._compile (internal/modules/cjs/loader)
-    at Module._extensions..js (internal/modules/cjs/loader)
-    at Module.load (internal/modules/cjs/loader)
-    at Module._load (internal/modules/cjs/loader) {
-  code: 'ERR_INVALID_ARG_TYPE'
-}
-
-Node.js v18.15.0"
-`;
+exports[`fixtures > error-runtime > stderr 1`] = `""`;
 
 exports[`fixtures > error-runtime > stdout 1`] = `""`;
 
-exports[`fixtures > esm > stdout 1`] = `
-"{ utilsLib: { version: '123', utils: { a: 'a', default: 'default' } } }
-{
-  file: '<cwd>/test.js',
-  dir: '<cwd>',
-  stack: [
-    'at getStack (<cwd>/test)',
-    'at test (<cwd>/test)',
-    'at <cwd>/index.js',
-    'at kazuya (<root>/dist/index.cjs)',
-    'at Object.<anonymous> (<root>/bin/kazuya)',
-    'at Module._compile (internal/modules/cjs/loader)',
-    'at Module._extensions..js (internal/modules/cjs/loader)',
-    'at Module.load (internal/modules/cjs/loader)',
-    'at Module._load (internal/modules/cjs/loader)',
-    'at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main)'
-  ]
-}"
-`;
+exports[`fixtures > esm > stdout 1`] = `""`;
 
 exports[`fixtures > exotic > stdout 1`] = `
 "Typescript: true
