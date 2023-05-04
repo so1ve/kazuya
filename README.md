@@ -116,7 +116,7 @@ Custom alias map used to resolve ids.
 ### `nativeModules`
 
 - Type: Array
-- Default: ["typescript"]
+- Default: `["typescript"]`
 - Environment Variable: `KAZUYA_NATIVE_MODULES`
 
 List of modules (within `node_modules`) to always use native require for them.
@@ -124,7 +124,7 @@ List of modules (within `node_modules`) to always use native require for them.
 ### `transformModules`
 
 - Type: Array
-- Default: []
+- Default: `[]`
 - Environment Variable: `KAZUYA_TRANSFORM_MODULES`
 
 List of modules (within `node_modules`) to transform them regardless of syntax.
