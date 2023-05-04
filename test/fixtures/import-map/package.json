@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "type": "module",
+  "exports": "./lib/index.mjs",
+  "imports": {
+    "#alias": "./lib/alias.mjs"
+  }
+}
