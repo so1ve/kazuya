@@ -9,14 +9,12 @@ import { basename, dirname, extname, join } from "pathe";
 import destr from "destr";
 import escapeStringRegexp from "escape-string-regexp";
 import createRequire from "create-require";
-import { lt } from "semver";
 import { normalizeAliases, resolveAlias } from "pathe/utils";
 import { addHook } from "pirates";
 import objectHash from "object-hash";
 import { hasESMSyntax, interopDefault, resolvePathSync } from "mlly";
 
 import {
-  detectLegacySyntax,
   getCacheDir,
   isDir,
   isWritable,
@@ -29,7 +27,6 @@ const _EnvDebug = destr(process.env.KAZUYA_DEBUG);
 const _EnvCache = destr(process.env.KAZUYA_CACHE);
 const _EnvESMResolve = destr(process.env.KAZUYA_ESM_RESOLVE);
 const _EnvRequireCache = destr(process.env.KAZUYA_REQUIRE_CACHE);
-const _EnvSourceMaps = destr(process.env.KAZUYA_SOURCE_MAPS);
 const _EnvAlias = destr(process.env.KAZUYA_ALIAS);
 const _EnvTransform = destr(process.env.KAZUYA_TRANSFORM_MODULES);
 const _EnvNative = destr(process.env.KAZUYA_NATIVE_MODULES);
@@ -40,11 +37,9 @@ const defaults: KazuyaOptions = {
   debug: _EnvDebug,
   cache: _EnvCache === undefined ? true : !!_EnvCache,
   requireCache: _EnvRequireCache === undefined ? true : !!_EnvRequireCache,
-  sourceMaps: _EnvSourceMaps === undefined ? false : !!_EnvSourceMaps,
   interopDefault: false,
   esmResolve: _EnvESMResolve || false,
   cacheVersion: "7",
-  legacy: lt(process.version || "0.0.0", "14.0.0"),
   extensions: [".js", ".mjs", ".cjs", ".ts", ".mts", ".cts", ".json"],
   alias: _EnvAlias,
   nativeModules: _EnvNative || [],
@@ -68,10 +63,6 @@ export default function createKazuya(
 ): Kazuya {
   opts = { ...defaults, ...opts };
 
-  // Cache dependencies
-  if (opts.legacy) {
-    opts.cacheVersion += "-legacy";
-  }
   if (opts.transformOptions) {
     opts.cacheVersion += `-${objectHash(opts.transformOptions)}`;
   }
@@ -235,17 +226,7 @@ export default function createKazuya(
   function transform(topts: any): string {
     let code = getCache(topts.filename, topts.source, () => {
       const res = opts.transform!({
-        legacy: opts.legacy,
         ...opts.transformOptions,
-        sucrase: {
-          ...(opts.sourceMaps
-            ? {
-                sourceFileName: topts.filename,
-                sourceMaps: "inline",
-              }
-            : {}),
-          ...opts.transformOptions?.sucrase,
-        },
         ...topts,
       });
       if (res.error && opts.debug) {
@@ -322,8 +303,7 @@ export default function createKazuya(
       (isTypescript ||
         isNativeModule ||
         isTransformRe.test(filename) ||
-        hasESMSyntax(source) ||
-        (opts.legacy && detectLegacySyntax(source)));
+        hasESMSyntax(source));
 
     const start = performance.now();
     if (needsTranspile) {
