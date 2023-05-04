@@ -1,2 +1,2 @@
-// @ts-expect-error
-process.addListener(null);
+// // @ts-expect-error
+// process.addListener(null);
