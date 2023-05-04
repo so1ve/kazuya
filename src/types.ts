@@ -5,28 +5,24 @@ export interface TransformOptions {
   filename?: string;
   ts?: boolean;
   jsx?: boolean;
-  retainLines?: boolean;
-  legacy?: boolean;
   sucrase?: SucraseOptions;
 }
 
-export interface TRANSFORM_RESULT {
+export interface TransformResult {
   code: string;
   error?: any;
 }
 
 export interface KazuyaOptions {
-  transform?: (opts: TransformOptions) => TRANSFORM_RESULT;
+  transform?: (opts: TransformOptions) => TransformResult;
   debug?: boolean;
   cache?: boolean | string;
-  sourceMaps?: boolean;
   requireCache?: boolean;
   v8cache?: boolean;
   interopDefault?: boolean;
   esmResolve?: boolean;
   cacheVersion?: string;
   onError?: (error: Error) => void;
-  legacy?: boolean;
   extensions?: string[];
   transformOptions?: Omit<TransformOptions, "source">;
   alias?: Record<string, string>;

@@ -1,11 +1,12 @@
 import type { Options as SucraseTransformOptions } from "sucrase";
 import { transform as sucraseTransform } from "sucrase";
 
-import type { TRANSFORM_RESULT, TransformOptions } from "./types";
+import type { TransformOptions, TransformResult } from "./types";
 
-export default function transform(options: TransformOptions): TRANSFORM_RESULT {
+export default function transform(options: TransformOptions): TransformResult {
   const sucraseOptions: SucraseTransformOptions = {
     transforms: ["imports"],
+    ...options.sucrase,
   };
 
   if (options.ts) {
@@ -15,8 +16,6 @@ export default function transform(options: TransformOptions): TRANSFORM_RESULT {
   if (options.jsx) {
     sucraseOptions.transforms.push("jsx");
   }
-
-  Object.assign(sucraseOptions, options.sucrase);
 
   try {
     return {
