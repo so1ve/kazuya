@@ -33,7 +33,7 @@
       ]
     }
   },
-  "bin": "bin/jiti.js",
+  "bin": "bin/kazuya.js",
   "files": [
     "lib",
     "dist",
