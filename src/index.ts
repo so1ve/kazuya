@@ -10,3 +10,5 @@ export default (filename: string, opts: KazuyaOptions) => {
 
   return kazuya(filename, opts);
 };
+
+export * from "./types";
