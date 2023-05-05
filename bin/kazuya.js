@@ -10,6 +10,7 @@ if (!script) {
 }
 
 const pwd = process.cwd();
-const kazuya = require("..")(pwd);
+const { createKazuya } = require("..");
+const kazuya = createKazuya(pwd);
 const resolved = (process.argv[1] = kazuya.resolve(resolve(pwd, script)));
 kazuya(resolved);

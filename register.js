@@ -1,3 +1,4 @@
-const kazuya = require(".")();
+const { createKazuya } = require(".");
+const kazuya = createKazuya();
 
 kazuya.register();
