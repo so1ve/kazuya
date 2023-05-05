@@ -1,5 +1,11 @@
 import type { Options as SucraseOptions } from "sucrase";
 
+type Require = typeof require;
+export interface Kazuya extends Require {
+  transform: (opts: TransformOptions) => string;
+  register: () => () => void;
+}
+
 export interface TransformOptions {
   source: string;
   filename?: string;

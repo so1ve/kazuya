@@ -22,7 +22,7 @@ import {
   md5,
   readNearestPackageJSON,
 } from "./utils";
-import type { KazuyaOptions, TransformOptions } from "./types";
+import type { Kazuya, KazuyaOptions } from "./types";
 
 const _EnvDebug = destr(process.env.KAZUYA_DEBUG);
 const _EnvCache = destr(process.env.KAZUYA_CACHE);
@@ -46,12 +46,6 @@ const defaults: KazuyaOptions = {
   nativeModules: _EnvNative || [],
   transformModules: _EnvTransform || [],
 };
-
-type Require = typeof require;
-export interface Kazuya extends Require {
-  transform: (opts: TransformOptions) => string;
-  register: () => () => void;
-}
 
 const JS_EXT_RE = /\.(c|m)?j(sx?)$/;
 const TS_EXT_RE = /\.(c|m)?t(sx?)$/;
