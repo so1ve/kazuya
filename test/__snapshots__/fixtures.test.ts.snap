@@ -16,10 +16,7 @@ exports[`fixtures > error-runtime > stdout 1`] = `""`;
 
 exports[`fixtures > esm > stdout 1`] = `""`;
 
-exports[`fixtures > exotic > stdout 1`] = `
-"Typescript: true
-Config: true"
-`;
+exports[`fixtures > exotic > stdout 1`] = `""`;
 
 exports[`fixtures > hashbang > stdout 1`] = `"1"`;
 
