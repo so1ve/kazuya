@@ -11,6 +11,4 @@ export function createKazuya(filename: string, opts: KazuyaOptions) {
   return kazuya(filename, opts);
 }
 
-export default createKazuya;
-
 export * from "./types";
