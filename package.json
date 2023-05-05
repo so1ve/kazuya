@@ -62,7 +62,6 @@
     "@vitest/coverage-c8": "^0.31.0",
     "acorn": "^8.8.2",
     "bumpp": "^9.1.0",
-    "config": "^3.3.9",
     "create-require": "^1.1.1",
     "destr": "^1.2.2",
     "escape-string-regexp": "^5.0.0",
