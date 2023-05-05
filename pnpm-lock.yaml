@@ -22,12 +22,12 @@ importers:
       '@vitest/coverage-c8':
         specifier: ^0.31.0
         version: 0.31.0(vitest@0.31.0)
+      acorn:
+        specifier: ^8.8.2
+        version: 8.8.2
       bumpp:
         specifier: ^9.1.0
         version: 9.1.0
-      config:
-        specifier: ^3.3.9
-        version: 3.3.9
       create-require:
         specifier: ^1.1.1
         version: 1.1.1
@@ -1582,13 +1582,6 @@ packages:
       md5-hex: 3.0.1
       semver: 7.5.0
       well-known-symbols: 2.0.0
-    dev: true
-
-  /config@3.3.9:
-    resolution: {integrity: sha512-G17nfe+cY7kR0wVpc49NCYvNtelm/pPy8czHoFkAgtV1lkmcp7DHtWCdDu+C9Z7gb2WVqa9Tm3uF9aKaPbCfhg==}
-    engines: {node: '>= 10.0.0'}
-    dependencies:
-      json5: 2.2.3
     dev: true
 
   /convert-source-map@1.9.0:
@@ -3190,12 +3183,6 @@ packages:
     hasBin: true
     dependencies:
       minimist: 1.2.8
-    dev: true
-
-  /json5@2.2.3:
-    resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
-    engines: {node: '>=6'}
-    hasBin: true
     dev: true
 
   /jsonc-eslint-parser@2.2.0:
