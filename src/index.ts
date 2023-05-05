@@ -5,10 +5,12 @@ function onError(err: any) {
   throw err; /* ↓ Check stack trace ↓ */
 }
 
-export default (filename: string, opts: KazuyaOptions) => {
+export function createKazuya(filename: string, opts: KazuyaOptions) {
   opts = { onError, ...opts };
 
   return kazuya(filename, opts);
-};
+}
+
+export default createKazuya;
 
 export * from "./types";
