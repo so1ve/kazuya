@@ -39,7 +39,8 @@ Cons:
 ### Programmatic
 
 ```js
-const kazuya = require("kazuya")(__filename);
+const { createKazuya } = require("kazuya");
+const kazuya = createKazuya(__filename);
 
 kazuya("./path/to/file.ts");
 ```
@@ -47,7 +48,8 @@ kazuya("./path/to/file.ts");
 You can also pass options as second argument:
 
 ```js
-const kazuya = require("kazuya")(__filename, { debug: true });
+const { createKazuya } = require("kazuya");
+const kazuya = createKazuya(__filename, { debug: true });
 ```
 
 ### CLI
@@ -66,7 +68,8 @@ node -r kazuya/register index.ts
 Alternatively, you can register `kazuya` as a require hook programmatically:
 
 ```js
-const kazuya = require("kazuya")();
+const { createKazuya } = require("kazuya");
+const kazuya = createKazuya();
 const unregister = kazuya.register();
 ```
 
