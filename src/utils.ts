@@ -11,7 +11,7 @@ export function getCacheDir() {
   // Workaround for pnpm setting an incorrect `TMPDIR`.
   // Set `KAZUYA_RESPECT_TMPDIR_ENV` to a truthy value to disable this workaround.
   // https://github.com/pnpm/pnpm/issues/6140
-  // https://github.com/so1ve/kazuya/issues/120
+  // https://github.com/unjs/jiti/issues/120
   if (
     process.env.TMPDIR &&
     _tmpDir === process.cwd() &&
