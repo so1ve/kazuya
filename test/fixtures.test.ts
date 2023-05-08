@@ -1,8 +1,8 @@
 import { dirname, join, resolve } from "node:path";
 
 import { execa } from "execa";
-import { describe, expect, it } from "vitest";
 import fg from "fast-glob";
+import { describe, expect, it } from "vitest";
 
 describe("fixtures", async () => {
   const kazuyaPath = resolve(__dirname, "../bin/kazuya.js");
@@ -18,8 +18,8 @@ describe("fixtures", async () => {
       const cwd = dirname(fixtureEntry);
 
       // Clean up absolute paths and sourcemap locations for stable snapshots
-      function cleanUpSnap(str: string) {
-        return `${str}\n`
+      const cleanUpSnap = (str: string) =>
+        `${str}\n`
           .replace(/\n\t/g, "\n")
           .replace(/\\+/g, "/")
           .split(cwd.replace(/\\/g, "/"))
@@ -32,7 +32,6 @@ describe("fixtures", async () => {
           .replace(/file:\/{3}/g, "file://")
           .replace(/ParseError: \w:\/:\s+/, "ParseError: ") // Unknown chars in Windows
           .trim();
-      }
 
       const { stdout, stderr } = await execa(
         "node",
@@ -45,7 +44,7 @@ describe("fixtures", async () => {
             KAZUYA_CACHE: "false",
             KAZUYA_ESM_RESOLVE: "true",
           },
-        }
+        },
       );
 
       if (name.includes("error")) {

@@ -1,9 +1,10 @@
-// eslint-disable-next-line import/no-duplicates
+// eslint-disable-next-line import/no-duplicates, import/order
 import imported from "./file.json";
+
 // eslint-disable-next-line import/no-duplicates
 import importedWithAssertion from "./file.json" assert { type: "json" };
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
 const required = require("./file.json");
 
 const debug = (label: string, value: any) =>

@@ -1,5 +1,5 @@
-import { test as satisfiesTest } from "./satisfies";
 import { child } from "./parent.mjs";
+import { test as satisfiesTest } from "./satisfies";
 
 export type { Test } from "./types";
 

@@ -1,20 +1,21 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { Module, builtinModules } from "node:module";
-import { performance } from "node:perf_hooks";
 import { platform } from "node:os";
-import vm from "node:vm";
+import { performance } from "node:perf_hooks";
 import { fileURLToPath, pathToFileURL } from "node:url";
+import vm from "node:vm";
 
-import { basename, dirname, extname, join } from "pathe";
+import createRequire from "create-require";
 import destr from "destr";
 import escapeStringRegexp from "escape-string-regexp";
-import createRequire from "create-require";
+import { hasESMSyntax, interopDefault, resolvePathSync } from "mlly";
+import objectHash from "object-hash";
+import { basename, dirname, extname, join } from "pathe";
 import { normalizeAliases, resolveAlias } from "pathe/utils";
 import { addHook } from "pirates";
-import objectHash from "object-hash";
-import { hasESMSyntax, interopDefault, resolvePathSync } from "mlly";
 
 import sucrase from "./sucrase";
+import type { Kazuya, KazuyaOptions } from "./types";
 import {
   getCacheDir,
   isDir,
@@ -22,7 +23,6 @@ import {
   md5,
   readNearestPackageJSON,
 } from "./utils";
-import type { Kazuya, KazuyaOptions } from "./types";
 
 const _EnvDebug = destr(process.env.KAZUYA_DEBUG);
 const _EnvCache = destr(process.env.KAZUYA_CACHE);
@@ -54,7 +54,7 @@ export default function createKazuya(
   _filename: string,
   opts: KazuyaOptions = {},
   parentModule?: typeof module,
-  requiredModules?: Record<string, typeof module>
+  requiredModules?: Record<string, typeof module>,
 ): Kazuya {
   opts = { ...defaults, ...opts };
 
@@ -74,12 +74,12 @@ export default function createKazuya(
   const isNativeRe = new RegExp(
     `node_modules/(${nativeModules
       .map((m) => escapeStringRegexp(m))
-      .join("|")})/`
+      .join("|")})/`,
   );
   const isTransformRe = new RegExp(
     `node_modules/(${transformModules
       .map((m) => escapeStringRegexp(m))
-      .join("|")})/`
+      .join("|")})/`,
   );
 
   function debug(...args: string[]) {
@@ -115,7 +115,7 @@ export default function createKazuya(
   const nativeRequire = createRequire(
     isWindows
       ? _filename.replace(/\//g, "\\") // Import maps does not work with normalized paths!
-      : _filename
+      : _filename,
   );
 
   const tryResolve = (id: string, options?: { paths?: string[] }) => {
@@ -126,7 +126,7 @@ export default function createKazuya(
 
   const _url = pathToFileURL(_filename);
   const _additionalExts = [...opts.extensions!].filter((ext) => ext !== ".js");
-  const _resolve = (id: string, options?: { paths?: string[] }) => {
+  function _resolve(id: string, options?: { paths?: string[] }) {
     let resolved, err;
 
     // Resolve alias
@@ -178,13 +178,13 @@ export default function createKazuya(
       }
     }
     throw err;
-  };
+  }
   _resolve.paths = nativeRequire.resolve.paths;
 
   function getCache(
     filename: string | undefined,
     source: string,
-    get: () => string
+    get: () => string,
   ): string {
     if (!opts.cache || !filename) {
       return get();
@@ -197,13 +197,14 @@ export default function createKazuya(
     const filebase = `${basename(dirname(filename))}-${basename(filename)}`;
     const cacheFile = join(
       opts.cache as string,
-      `${filebase}.${md5(filename)}.js`
+      `${filebase}.${md5(filename)}.js`,
     );
 
     if (existsSync(cacheFile)) {
       const cacheSource = readFileSync(cacheFile, "utf8");
       if (cacheSource.endsWith(sourceHash)) {
         debug("[cache hit]", filename, "~>", cacheFile);
+
         return cacheSource;
       }
     }
@@ -227,17 +228,18 @@ export default function createKazuya(
       if (res.error && opts.debug) {
         debug(res.error);
       }
+
       return res.code;
     });
     if (code.startsWith("#!")) {
       code = `// ${code}`;
     }
+
     return code;
   }
 
-  function _interopDefault(mod: any) {
-    return opts.interopDefault ? interopDefault(mod) : mod;
-  }
+  const _interopDefault = (mod: any) =>
+    opts.interopDefault ? interopDefault(mod) : mod;
 
   function kazuya(id: string) {
     // Check for node: and file: protocol
@@ -261,18 +263,21 @@ export default function createKazuya(
       debug("[json]", filename);
       const jsonModule = nativeRequire(id);
       Object.defineProperty(jsonModule, "default", { value: jsonModule });
+
       return jsonModule;
     }
 
     // Unknown format
     if (ext && !opts.extensions!.includes(ext)) {
       debug("[unknown]", filename);
+
       return nativeRequire(id);
     }
 
     // Force native modules
     if (isNativeRe.test(filename)) {
       debug("[native]", filename);
+
       return nativeRequire(id);
     }
 
@@ -307,11 +312,12 @@ export default function createKazuya(
       debug(
         `[transpile]${isNativeModule ? " [esm]" : ""}`,
         filename,
-        `(${time}ms)`
+        `(${time}ms)`,
       );
     } else {
       try {
         debug("[native]", filename);
+
         return _interopDefault(nativeRequire(id));
       } catch (error: any) {
         debug("Native require error:", error);
@@ -371,7 +377,7 @@ export default function createKazuya(
         mod.require,
         mod,
         mod.filename,
-        dirname(mod.filename)
+        dirname(mod.filename),
       );
     } catch (error: any) {
       if (opts.requireCache) {
@@ -405,17 +411,16 @@ export default function createKazuya(
     return _exports;
   }
 
-  function register() {
-    return addHook(
+  const register = () =>
+    addHook(
       (source: string, filename: string) =>
         kazuya.transform({
           source,
           filename,
           ts: !!/\.[cm]?ts$/.test(filename),
         }),
-      { exts: opts.extensions }
+      { exts: opts.extensions },
     );
-  }
 
   kazuya.resolve = _resolve;
   kazuya.cache = opts.requireCache ? nativeRequire.cache : {};

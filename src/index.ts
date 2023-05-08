@@ -1,5 +1,5 @@
-import type { KazuyaOptions } from "./types";
 import kazuya from "./kazuya";
+import type { KazuyaOptions } from "./types";
 
 function onError(err: any) {
   throw err; /* ↓ Check stack trace ↓ */

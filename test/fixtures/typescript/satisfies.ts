@@ -41,12 +41,10 @@ export const normalizeUserEntity = (({ name, avatar }: User) =>
     },
   } satisfies NormalizedUser)) satisfies UserNormalizer;
 
-export const test = () => {
-  return {
-    satisfiesTest: {
-      firstTest,
-      secondTest,
-      normalizeUserEntity,
-    },
-  };
-};
+export const test = () => ({
+  satisfiesTest: {
+    firstTest,
+    secondTest,
+    normalizeUserEntity,
+  },
+});

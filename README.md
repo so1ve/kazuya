@@ -40,6 +40,7 @@ Cons:
 
 ```js
 const { createKazuya } = require("kazuya");
+
 const kazuya = createKazuya(__filename);
 
 kazuya("./path/to/file.ts");
@@ -49,6 +50,7 @@ You can also pass options as second argument:
 
 ```js
 const { createKazuya } = require("kazuya");
+
 const kazuya = createKazuya(__filename, { debug: true });
 ```
 
@@ -69,6 +71,7 @@ Alternatively, you can register `kazuya` as a require hook programmatically:
 
 ```js
 const { createKazuya } = require("kazuya");
+
 const kazuya = createKazuya();
 const unregister = kazuya.register();
 ```

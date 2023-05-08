@@ -1,5 +1,5 @@
-import { accessSync, constants, lstatSync, readFileSync } from "node:fs";
 import { createHash } from "node:crypto";
+import { accessSync, constants, lstatSync, readFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 
 import { join } from "pathe";
@@ -29,6 +29,7 @@ export function getCacheDir() {
 export function isDir(filename: string): boolean {
   try {
     const stat = lstatSync(filename);
+
     return stat.isDirectory();
   } catch {
     // lstatSync throws an error if path doesn't exist
@@ -39,19 +40,17 @@ export function isDir(filename: string): boolean {
 export function isWritable(filename: string): boolean {
   try {
     accessSync(filename, constants.W_OK);
+
     return true;
   } catch {
     return false;
   }
 }
 
-export function md5(content: string, len = 8) {
-  return createHash("md5").update(content).digest("hex").slice(0, len);
-}
+export const md5 = (content: string, len = 8) =>
+  createHash("md5").update(content).digest("hex").slice(0, len);
 
-export function isObject(val: any) {
-  return val !== null && typeof val === "object";
-}
+export const isObject = (val: any) => val !== null && typeof val === "object";
 
 export function readNearestPackageJSON(path: string): PackageJson | undefined {
   while (path && path !== "." && path !== "/") {

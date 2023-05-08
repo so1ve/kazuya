@@ -1,5 +1,5 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { isWindows } from "std-env";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import { getCacheDir } from "../src/utils";
 
