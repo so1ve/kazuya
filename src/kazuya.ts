@@ -118,11 +118,11 @@ export default function createKazuya(
       : _filename,
   );
 
-  const tryResolve = (id: string, options?: { paths?: string[] }) => {
+  function tryResolve(id: string, options?: { paths?: string[] }) {
     try {
       return nativeRequire.resolve(id, options);
     } catch {}
-  };
+  }
 
   const _url = pathToFileURL(_filename);
   const _additionalExts = [...opts.extensions!].filter((ext) => ext !== ".js");
