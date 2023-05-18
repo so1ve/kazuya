@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@antfu/ni": "^0.21.3",
-    "@so1ve/eslint-config": "^0.85.0",
+    "@so1ve/eslint-config": "^0.86.0",
     "@types/node": "^18.16.5",
     "@types/object-hash": "^3.0.2",
     "@types/resolve": "^1.20.2",
