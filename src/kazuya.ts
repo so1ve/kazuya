@@ -142,7 +142,6 @@ export default function createKazuya(
       ];
       for (const conditions of conditionSets) {
         try {
-          // eslint-disable-next-line etc/no-deprecated
           resolved = resolvePathSync(id, {
             url: _url,
             conditions,

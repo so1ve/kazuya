@@ -13,6 +13,7 @@ describe("fixtures", async () => {
 
   for (const fixture of fixtures) {
     const name = dirname(fixture);
+
     it(name, async () => {
       const fixtureEntry = join(dir, fixture);
       const cwd = dirname(fixtureEntry);

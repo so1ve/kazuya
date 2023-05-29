@@ -20,17 +20,21 @@ describe("utils", () => {
     it("returns the system's TMPDIR when TMPDIR is not set", () => {
       const originalTmpdir = process.env.TMPDIR;
       delete process.env.TMPDIR;
+
       expect(getCacheDir()).toBe("/tmp/node-kazuya");
+
       process.env.TMPDIR = originalTmpdir;
     });
 
     it("returns TMPDIR when TMPDIR is not CWD", () => {
       vi.stubEnv("TMPDIR", notCwd);
+
       expect(getCacheDir()).toBe("/cwd__NOT__/node-kazuya");
     });
 
     it("returns the system's TMPDIR when TMPDIR is CWD", () => {
       vi.stubEnv("TMPDIR", cwd);
+
       expect(getCacheDir()).toBe("/tmp/node-kazuya");
     });
 
