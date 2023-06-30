@@ -35,8 +35,8 @@
     }
   },
   "files": [
-    "lib",
     "dist",
+    "lib",
     "register.js"
   ],
   "publishConfig": {
