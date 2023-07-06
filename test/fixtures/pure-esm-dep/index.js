@@ -5,7 +5,7 @@ import { walk } from "estree-walker";
 const ast = parse('const foo = "bar"', { ecmaVersion: "latest" });
 
 walk(ast, {
-  enter(node) {
-    console.log("Enter", node.type);
-  },
+	enter(node) {
+		console.log("Enter", node.type);
+	},
 });
